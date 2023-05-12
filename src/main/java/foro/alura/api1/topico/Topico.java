@@ -75,9 +75,6 @@ public class Topico {
             this.fecha = datosActualizarTopico.fecha();
 
         }
-
-
-
     }
 
     public void desactivarTopico() {

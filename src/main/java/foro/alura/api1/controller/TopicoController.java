@@ -4,13 +4,10 @@ import foro.alura.api1.topico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/topicos")
@@ -29,11 +26,13 @@ public class TopicoController {
         //return topicoRepository.findAll(paginacion).map(DatosListadoTopico::new);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
-        Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
+    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico,  @PathVariable Long id){
+        //Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
+        Topico topico = topicoRepository.getOne(id);
         topico.actualizarDatos(datosActualizarTopico);
+
 
     }
     //Delete Logico
