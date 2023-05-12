@@ -1,12 +1,13 @@
 package foro.alura.api1.controller;
 
-import foro.alura.api1.topico.DatosListadoTopico;
-import foro.alura.api1.topico.DatosRegistroTopico;
-import foro.alura.api1.topico.Topico;
-import foro.alura.api1.topico.TopicoRepository;
+import foro.alura.api1.topico.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,32 @@ public class TopicoController {
         topicoRepository.save(new Topico(datosRegistroTopico));
     }
     @GetMapping
-    public List<DatosListadoTopico> listadoTopico(){
-        return topicoRepository.findAll().stream().map(DatosListadoTopico::new).toList();
+    public Page<DatosListadoTopico> listadoTopico(@PageableDefault(size = 2) Pageable paginacion){
+        return topicoRepository.findByActivoTrue(paginacion).map(DatosListadoTopico::new);
+        //return topicoRepository.findAll(paginacion).map(DatosListadoTopico::new);
     }
+
+    @PutMapping
+    @Transactional
+    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
+        Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
+        topico.actualizarDatos(datosActualizarTopico);
+
+    }
+    //Delete Logico
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void eliminarTopico(@PathVariable Long id){
+        Topico topico = topicoRepository.getReferenceById(id);
+        topico.desactivarTopico();
+
+    }
+/*  //Delete en base de datos
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void eliminarTopico(@PathVariable Long id){
+        Topico topico = topicoRepository.getReferenceById(id);
+        topicoRepository.delete(topico);
+
+    }*/
 }

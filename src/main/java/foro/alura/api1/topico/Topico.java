@@ -24,15 +24,14 @@ public class Topico {
     private String status = "pendiente"; // inicializamos con el valor por defecto
     private String mensaje;
     private LocalDateTime fecha = LocalDateTime.now(); // inicializamos con el valor por defecto
-
+    private Boolean activo;
     private String autor;
-
-
     @Enumerated(EnumType.STRING)
     private Curso curso;
 
 
     public Topico(DatosRegistroTopico datosRegistroTopico) {
+        this.activo = true;
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
         this.autor = datosRegistroTopico.autor();
@@ -44,5 +43,44 @@ public class Topico {
             this.fecha = datosRegistroTopico.fecha();
 
         }
+    }
+
+    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+        if(datosActualizarTopico.titulo() != null){
+            this.titulo = datosActualizarTopico.titulo();
+        }
+
+
+
+        if(datosActualizarTopico.mensaje() != null){
+            this.mensaje = datosActualizarTopico.mensaje();
+
+        }
+
+        if(datosActualizarTopico.autor() != null){
+            this.autor = datosActualizarTopico.autor();
+
+        }
+        /*
+        if(datosActualizarTopico.curso() != null){
+            this.curso = datosActualizarTopico.curso();
+
+        }*/
+
+        if(datosActualizarTopico.titulo() != null){
+            this.status = datosActualizarTopico.status();
+
+        }
+        if(datosActualizarTopico.titulo() != null){
+            this.fecha = datosActualizarTopico.fecha();
+
+        }
+
+
+
+    }
+
+    public void desactivarTopico() {
+        this.activo = false;
     }
 }
