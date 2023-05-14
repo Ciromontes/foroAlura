@@ -9,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/topicos")
@@ -16,10 +19,16 @@ public class TopicoController {
     @Autowired
     private TopicoRepository topicoRepository;
     @PostMapping
-    public void registrarTopico(@RequestBody @Valid DatosRegistroTopico datosRegistroTopico) {
+    public ResponseEntity<DatosRespuestaTopico> registrarTopico(@RequestBody @Valid DatosRegistroTopico datosRegistroTopico,
+                                            UriComponentsBuilder uriComponentsBuilder ) {
         /*System.out.println("el request llega correctamnete");
         System.out.println(parametro);*/
-        topicoRepository.save(new Topico(datosRegistroTopico));
+       Topico topico = topicoRepository.save(new Topico(datosRegistroTopico));
+       DatosRespuestaTopico datosRespuestaTopico = new DatosRespuestaTopico(topico.getId(), topico.getTitulo(),
+               topico.getMensaje(), topico.getAutor(), topico.getCurso(), topico.getStatus(),topico.getFecha());
+
+        URI url = UriComponentsBuilder.fromPath("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+        return ResponseEntity.created(url).body(datosRespuestaTopico);
     }
     @GetMapping
     public Page<DatosListadoTopico> listadoTopico(@PageableDefault(size = 2) Pageable paginacion){
