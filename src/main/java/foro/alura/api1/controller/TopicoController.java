@@ -29,10 +29,12 @@ public class TopicoController {
 
     @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico,  @PathVariable Long id){
+    public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico,  @PathVariable Long id){
         //Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
         Topico topico = topicoRepository.getOne(id);
         topico.actualizarDatos(datosActualizarTopico);
+        return ResponseEntity.ok(new DatosRespuestaTopico(topico.getId(), topico.getTitulo(),
+                topico.getMensaje(), topico.getAutor(), topico.getCurso(), topico.getStatus(),topico.getFecha()));
 
 
     }
