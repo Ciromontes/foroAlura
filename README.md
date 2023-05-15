@@ -18,8 +18,24 @@ Configuración de la conexión a la base de datos en el proyecto de Spring Boot
 Ejecución del proyecto en local
 
 USO:
+## Iniciar sesión en la tabla usuarios
 
-crea una tabla en mysql con el nombre: topicos2
+Para acceder a la API protegida por Spring Security, debes autenticarte utilizando las credenciales de un usuario registrado en la tabla usuarios de la base de datos (recuerda crear tu tabla de datos llamada usuarios).
+
+A continuación, se muestra un ejemplo de cómo puedes logearte utilizando el formato JSON:
+
+```json
+{
+	"login": "Mi.Nombre",
+	"clave": 123456
+}
+Reemplaza "Mi.Nombre" con el nombre de usuario deseado y "123456" con la contraseña correspondiente que desees.
+
+Una vez que hayas proporcionado las credenciales correctas, recibirás un token de autenticación válido para acceder a los recursos protegidos de la API.
+
+Recuerda que las contraseñas almacenadas en la base de datos están encriptadas con el algoritmo bcrypt para garantizar la seguridad de las cuentas de usuario.
+
+la app crea una tabla en mysql con el nombre: topicos2
 
 /topicos (POST): Permite registrar un nuevo tópico con los campos requeridos (id, título, mensaje, fecha de creación, estatus, autor y curso).
 /topicos (GET): Devuelve la lista de todos los tópicos registrados en formato JSON.
