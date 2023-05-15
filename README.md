@@ -19,7 +19,7 @@ Ejecución del proyecto en local
 
 USO:
 
-
+crea una tabla en mysql con el nombre: topicos2
 
 /topicos (POST): Permite registrar un nuevo tópico con los campos requeridos (id, título, mensaje, fecha de creación, estatus, autor y curso).
 /topicos (GET): Devuelve la lista de todos los tópicos registrados en formato JSON.
