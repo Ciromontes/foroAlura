@@ -1,4 +1,4 @@
-package foro.alura.api1.topico;
+package foro.alura.api1.domain.topico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.time.LocalDateTime;
 
 @Table(name ="topicos2")

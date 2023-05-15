@@ -1,6 +1,7 @@
 package foro.alura.api1.controller;
 
-import foro.alura.api1.topico.*;
+import foro.alura.api1.domain.topico.*;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

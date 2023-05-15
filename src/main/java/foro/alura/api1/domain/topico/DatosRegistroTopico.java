@@ -1,9 +1,8 @@
-package foro.alura.api1.topico;
+package foro.alura.api1.domain.topico;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.time.LocalDateTime;
 
 public record DatosRegistroTopico(

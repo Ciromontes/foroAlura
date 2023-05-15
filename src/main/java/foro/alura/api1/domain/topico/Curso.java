@@ -1,4 +1,4 @@
-package foro.alura.api1.topico;
+package foro.alura.api1.domain.topico;
 
 public enum Curso {
     CIENCIAS_COMPUTACION,

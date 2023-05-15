@@ -1,4 +1,4 @@
-package foro.alura.api1.topico;
+package foro.alura.api1.domain.topico;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
