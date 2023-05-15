@@ -1,4 +1,4 @@
-package foro.alura.api1.infra;
+package foro.alura.api1.infra.errores;
 
 
 import jakarta.persistence.EntityNotFoundException;
