@@ -1,6 +1,9 @@
 package foro.alura.api1.controller;
 
 import foro.alura.api1.domain.usuarios.DatosAutenticacionUsuario;
+import foro.alura.api1.domain.usuarios.Usuario;
+import foro.alura.api1.infra.security.DatosJWTtoken;
+import foro.alura.api1.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.aspectj.weaver.patterns.IToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +22,15 @@ public class AutenticacionController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario){
-        Authentication token = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
+        Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
                 datosAutenticacionUsuario.clave());
-        authenticationManager.authenticate(token);
-        return  ResponseEntity.ok().build();
+        var usuarioAutenticado = authenticationManager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+        return  ResponseEntity.ok(new DatosJWTtoken(JWTtoken));
     }
 }
